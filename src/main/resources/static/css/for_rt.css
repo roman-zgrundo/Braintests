@@ -1,0 +1,46 @@
+.string-wrapper span {
+    font-size: 28px;
+    color: black;
+}
+
+.string-wrapper span.active {
+    opacity: 0;
+    transition: 1s;
+}
+
+.string-wrapper {
+    /*padding: 50px 250px;*/
+}
+
+.btn.active {
+    display: none;
+}
+
+#customRange3.active {
+    display: none;
+}
+
+p.text_none {
+    display: none;
+    /*color: brown;*/
+}
+
+.form-label.active {
+    display: none;
+}
+
+p.range_result.active {
+    display: none;
+}
+
+.chooseText.active {
+    display: none;
+}
+
+.label_for_chooseText.active {
+    display: none;
+}
+
+p.question.active {
+    display: none;
+}

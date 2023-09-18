@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Your profile</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/css/for_students.css"/>
+</head>
+<header class="sticky-top" th:insert="blocks/header :: header"></header>
+
+<main>
+    <div class="container w-75 text-center">
+        <h3 class="mt-5" th:text="'Здравствуйте, ' +${user.getName()} + ', вот все тренера'"></h3>
+    </div>
+
+
+    <div class="container mt-5">
+        <table class="table table-dark text-center">
+            <thead>
+            <tr class="for-table-head">
+                <th scope="col">#</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Роль</th>
+                <th scope="col">Баланас</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Действия</th>
+            </tr>
+            </thead>
+            <tbody th:each="el, state : ${users}">
+            <tr class="table-active align-middle">
+                <form method="post" th:if="${#strings.toString(el.role) == 'ROLE_TEACHER'
+                || #strings.toString(el.role) == 'ROLE_ADMIN'}">
+                    <th th:utext="${state.index}+1" class="for-table"></th>
+                    <td th:text="${el.name}" class="py-4 for-table"></td>
+                    <td th:text="${el.role.getRoleValue()}" class="py-4 for-table"></td>
+                    <td th:text="${countList[__${state.index}__]}" class="py-4 for-table"></td>
+                    <td>
+                        <div class="text-center">
+                            <input class="d-none" name="id" th:value="${el.id}"></input>
+                            <div>
+                                <input class="form-check-input mt-0 checkbox-style support" type="checkbox"
+                                       disabled th:checked="${el.active} ? 'checked'">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <!-- Кнопка-триггер модального окна -->
+                        <button type="button" class="btn btn-warning m-1" data-bs-toggle="modal"
+                                th:data-bs-target="'#PaymentModal' + ${el.id}"> + | -
+                        </button>
+                        <!-- Модальное окно -->
+                        <div class="modal fade" th:id="'PaymentModal' + ${el.id}" tabindex="-1"
+                             aria-labelledby="#PaymentModal"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="PaymentModalLabel">Платеж</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Закрыть"></button>
+                                    </div>
+                                    <main class="w-75 m-auto text-center">
+                                        <form action="/teachers" method="post">
+                                            <div class="modal-body">
+                                                <input class="d-none" name="userId" th:value="${el.id}">
+                                                <input type="number" name="expense" placeholder="Кол-во уроков"
+                                                       class="form-control"  min="0"><br>
+                                                <input type="text" name="comment" placeholder="comment"
+                                                       class="form-control"><br>
+                                                <input type="date" id="todayDate" name="actionDate"
+                                                       placeholder="actionDate"
+                                                       class="form-control my-today-date"><br>
+                                                <select class="form-control" id="action" name="action"><br>
+                                                    <option value="REPLENISHMENT">Пополнение</option>
+                                                    <option value="WRITE_OFF">Списание</option>
+                                                </select>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                                <button type="submit" class="btn btn-warning">Сохранить</button>
+                                            </div>
+                                        </form>
+                                    </main>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a th:href="'/students/teacher/' + ${el.id}" type="button"
+                           class="btn btn-warning m-1">Ученики</a>
+                        <a th:href="'/adminedituser/' + ${el.id}" type="button"
+                           class="btn btn-warning m-1"
+                           th:if="${#strings.toString(el.role)} != 'ROLE_ADMIN'">Редактировать профиль</a>
+                        <a th:href="'/accounts/profile/' + ${el.id}" type="button"
+                           class="btn btn-warning m-1">Профиль</a>
+                        <form th:action="@{/teachers/changeStatus}" method="post" class="d-inline-block">
+                            <input type="hidden" name="id" th:value="${el.id}"/>
+                            <input type="submit" class="btn btn-warning m-1" value="Изменить статус"
+                                   th:if="${#strings.toString(el.role)} != 'ROLE_ADMIN'">
+                        </form>
+                    </td>
+                </form>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</main>
+<footer th:insert="blocks/footer :: footer"></footer>
+<div th:insert="blocks/script-integration"></div>
+<script src="/js/for_payment_modal.js"></script>
+</body>
+</html>
+
+
+

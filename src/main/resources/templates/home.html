@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+<header class="sticky-top" th:insert="blocks/header :: header"></header>
+
+<br>
+<hr class="dashed">
+<div class="container col-xxl-8 px-4 py-1">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-1">
+        <div class="col-10 col-sm-8 col-lg-6 mx-auto">
+            <img src="/image/cube.png" class="d-block mx-lg-auto img-fluid" alt="Image for running text" width="700"
+                 height="500" loading="lazy">
+        </div>
+        <div class="col-lg-6">
+            <h1 class="display-5 fw-bold lh-1 mb-3 text-center">Тренажер «Исчезающий текст»</h1>
+            <p class="lead text-center">Тренажер «Исчезающий текст» - упражнение для курса скорочтения, направленно на
+                развитие скорости и техники чтения у детей. Текст необходимо прочитать до того, как он совсем пропадёт.
+                На чтение каждого слова отводится одинаковое количество времени.</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
+                <a href="/runningtext" type="button"
+                   class="btn mx-auto text-center btn-lg px-4 mx-auto btn-outline-secondary">Исчезающий текст</a>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<hr class="dashed">
+<br>
+<div class="container col-xxl-8 px-4 py-1">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-1">
+        <div class="col-lg-6">
+            <h1 class="display-5 fw-bold lh-1 mb-3 text-center">Тренажер «Таблица Шульте»</h1>
+            <p class="lead text-center">Тренажер «Таблица Шульте» - это отличное упражнение для развития умения
+                концентрироваться. Здесь будет представлена таблица со случайно размещенными числами, которые нужно
+                нажимать по возрастанию. Постоянные тренировки способствуют развитию параллельного внимания (умения
+                одновременно воспринимать большое количество информации и оценивать ее смысловую нагрузку) и увеличению
+                скорости чтения в любом возрасте.</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
+                <a href="/schultetable" type="button"
+                   class="btn mx-auto text-center btn-lg px-4 mx-auto btn-outline-secondary">Таблица Шульте</a>
+            </div>
+        </div>
+        <div class="col-10 col-sm-8 col-lg-6 mx-auto">
+            <img src="/image/schulte.png/" class="d-block mx-lg-auto img-fluid" alt="Image for Shulte table" width="700"
+                 height="500" loading="lazy">
+        </div>
+    </div>
+</div>
+<br>
+<hr class="dashed">
+<br>
+<div class="container col-xxl-8 px-4 py-1">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-1">
+        <div class="col-10 col-sm-8 col-lg-6 mx-auto">
+            <img src="/image/Stroop-Test.png/" class="d-block mx-lg-auto img-fluid" alt="Image for Stroop test"
+                 width="700" height="500" loading="lazy">
+        </div>
+        <div class="col-lg-6">
+            <h1 class="display-5 fw-bold lh-1 mb-3 text-center">Тренажер «Тест Струпа»</h1>
+            <p class="lead text-center">Тренажер «Тест Струпа» - классический вариант теста Струпа требует от
+                испытуемого во время показа ему карточек с надписями - названиями цветов, написанных разным цветом,
+                стараться быстро и правильно выбрать цвет, подходящий под значение слова.</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
+                <a href="/stroop" type="button"
+                   class="btn mx-auto text-center btn-lg px-4 mx-auto btn-outline-secondary">Тест Струпа</a>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<hr class="dashed">
+<br>
+<div class="container col-xxl-8 px-4 py-1">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-1">
+        <div class="col-lg-6">
+            <h1 class="display-5 fw-bold lh-1 mb-3 text-center">Тренажер «Флеш-слова»</h1>
+            <p class="lead text-center">Тренажер «Флеш-слова» - это отличное упражнение для развития памяти.
+                Здесь будут появляться слова с выбранной скоростью, которые необходимо запомнить. Затем
+                необходимо выбрать эти слова в той же последовательности. Постоянные тренировки способствуют развитию
+                концентрации, устойчивости внимания и увеличению скорости чтения.</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
+                <a href="/flashingwords" type="button"
+                   class="btn mx-auto text-center btn-lg px-4 mx-auto btn-outline-secondary">Флеш-слова</a>
+            </div>
+        </div>
+        <div class="col-10 col-sm-8 col-lg-6 mx-auto">
+            <img src="/image/flash-word.png/" class="d-block mx-lg-auto img-fluid" alt="Image for Flash word"
+                 width="700"
+                 height="500" loading="lazy">
+        </div>
+    </div>
+</div>
+<br>
+<hr class="dashed">
+<br>
+<div class="container col-xxl-8 px-4 py-1">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-1">
+        <div class="col-10 col-sm-8 col-lg-6 mx-auto">
+            <img src="/image/distributewords.png/" class="d-block mx-lg-auto img-fluid"
+                 alt="Image for distributewords test"
+                 width="700" height="500" loading="lazy">
+        </div>
+        <div class="col-lg-6">
+            <h1 class="display-5 fw-bold lh-1 mb-3 text-center">Тренажер «Распредели слова»</h1>
+            <p class="lead text-center">Тренажер «Распредели слова» - это увлекательное упражнение, спроектированное для
+                развития способности к анализу, классификации и сортировке информации. Тренажер представляет собой
+                интерактивное задание, в котором предстоит распределить слова по заданным категориям или столбцам. Он
+                способствует развитию способности к быстрому анализу и принятию решений, что может быть полезно
+                в повседневной жизни и профессиональных областях.</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
+                <a href="/distributewords" type="button"
+                   class="btn mx-auto text-center btn-lg px-4 mx-auto btn-outline-secondary">Распредели слова</a>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<hr class="dashed">
+
+<footer th:insert="blocks/footer :: footer"></footer>
+
+<div th:insert="blocks/script-integration"></div>
+</body>
+</html>

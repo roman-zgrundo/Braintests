@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"> <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/css/for_rt.css"/>
+</head>
+<body>
+<header class="sticky-top" th:insert="blocks/header :: header"></header>
+
+<div class="container alert alert-secondary mt-4" th:each="el : ${topics}">
+    <h3 th:text="${el.topic}"/>
+    <a th:href="'/distributewords/' + ${el.id}" class="btn btn-outline-dark">Начать</a>
+    <a sec:authorize="hasRole('ADMIN')" th:href="'/editdistributewords/' + ${el.id}" type="button"
+       class="btn btn-warning mx-1 fs-6">Изменить</a>
+</div>
+<footer th:insert="blocks/footer :: footer"></footer>
+<div th:insert="blocks/script-integration"></div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Running text</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/for_stroop.css" />
+</head>
+
+<header class="sticky-top" th:insert="blocks/header :: header"></header>
+
+<body>
+    <div class="body">
+        <div class="container text-center mt-3" id="start-menu">
+            <p th:text="${user.getId()}" class="d-none" id="id_user"></p>
+
+            <label for="customRange3" class="form-label ">Время (сек.)</label>
+            <input type="range" class="form-range ms-5 w-25 pt-3" min="10" max="180" step="10" id="customRange3" value="60">
+            <p class="range_result my-4" id="range_result"></p>
+            <button type="button" class="btn_back btn btn-outline-dark w-25" id="start-btn">Начать</button>
+        </div>
+        <div class="timer fs-1"><div class="time-seconds"></div></div>
+        <div class="wrapper">
+            <div class="color-word fs-1 fw-bold mb-3"></div>
+            <div class="buttons-color row mx-5 justify-content-md-center"></div>
+        </div>
+
+        <div class="popUp">
+            <div class="fs-4">Ваше время вышло</div>
+            <div class="popUp-true fs-4"></div>
+            <div class="popUp-mistake fs-4"></div>
+            <a href="/stroop" type="button" class="btn_back btn btn-outline-light w-25 mt-4">Начать еще раз</a>
+            <a href="/" type="button" class="btn_back btn btn-outline-light w-25 mt-4">Выход</a>
+        </div>
+    </div>
+    <footer th:insert="blocks/footer :: footer"></footer>
+    <div th:insert="blocks/script-integration"></div>
+        <script src="/js/for_stroop.js"></script>
+</body>
+</html>

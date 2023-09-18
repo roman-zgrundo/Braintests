@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Running text</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/for_flw.css" />
+</head>
+<body  th:each="el : ${words}">
+    <header class="sticky-top" th:insert="blocks/header :: header"></header>
+    <div class="container text-center mt-5">
+        <h1 th:text="${el.name}" id="name_set" />
+
+        <p th:text="${el.words}" class="text_none" id="main_set"></p>
+        <p th:text="${user.getId()}" class="text_none" id="id_user"></p>
+<!--        <p th:text="1" class="text_none" id="id_user"></p>-->
+        <p th:text="${el.word_count}" class="text_none" id="word_count"></p>
+
+        <p th:text="${el.id}" class="text_none" id="id_words"></p>
+    </div>
+    <div class="container string-wrapper mt-5 fs-6"></div>
+    <div class="container text-center">
+        <label for="customRange3" class="form-label form-for-customRange3">скорость (0с-2с)</label>
+        <input type="range" class="form-range ms-5 w-50 pt-3" min="0.05" max="4" step="0.05" id="customRange3">
+        <p class="range_result my-4" id="range_result"></p>
+    </div>
+    <div class="container text-center">
+        <label for="customRange3" class="form-label form-for-customRange4">количество слов</label>
+        <input type="range" class="form-range ms-5 w-50 pt-3" min="2" th:max="${el.word_count}" step="1" id="customRange4">
+        <p class="range_result my-4" id="range_word_count"></p>
+    </div>
+    <div class="mx-auto col-2 gap-2 d-grid">
+        <button type="button" class="btn_start btn btn-outline-dark">Начать</button>
+    </div>
+    <div class="mt-5 mx-auto col-2 gap-2 d-grid">
+        <a href="/" type="button" class="btn btn-outline-dark" id="btn_exit">Выход</a>
+    </div>
+    <div class="popUp">
+        <div class="text-center">
+            <div>Ты победил!!!</div>
+            <span id="popup_word_count"></span>
+            <div class="popUp-mistake"></div>
+            <div class="m-auto text-center">
+                <a th:href="'/flashingwords/' + ${el.id}" type="button" class="btn_back btn btn-outline-light w-50">Начать еще раз</a>
+                <a href="/" type="button" class="btn_back btn btn-outline-light w-50">Выход</a>
+            </div>
+        </div>
+    </div>
+    <footer th:insert="blocks/footer :: footer"></footer>
+    <div th:insert="blocks/script-integration"></div>
+    <script src="/js/script_flashing_words.js"></script>
+</body>
+</html>

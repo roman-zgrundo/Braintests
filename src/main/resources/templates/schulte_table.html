@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/css/for_sht.css"/>
+</head>
+<body>
+<header class="sticky-top" th:insert="blocks/header :: header"></header>
+
+<div class="body">
+    <div class="container text-center mt-3">
+        <p th:text="${user.getId()}" class="start" id="id_user"></p>
+        <label for="customRange3" class="form-label ">Масштаб (х:х)</label>
+        <input type="range" class="form-range ms-5 w-25 pt-3" min="2" max="8" step="1" id="customRange3" value="3">
+        <p class="range_result my-4" id="range_result"></p>
+    </div>
+    <div class="mx-auto col-2 gap-2 d-grid">
+        <button type="button" class="btn_start btn btn-outline-dark" id="btn_start">Начать</button>
+    </div>
+    <div class="timer">
+        <div class="time-minutes"></div>
+        <span class="span-timer">:</span>
+        <div class="time-seconds"></div>
+    </div>
+    <div class="wrapper"></div>
+    <div class="popUp">
+        <div class="text-center">
+            <div>Ты победил!!!</div>
+            <span class="popUp-timer">Время: <span class="popUp-minutes"></span>:<span
+                    class="popUp-seconds"></span></span>
+            <div class="popUp-mistake"></div>
+            <div class="m-auto text-center">
+                <a href="/schultetable" type="button" class="btn_back btn btn-outline-light w-50">Начать еще раз</a>
+                <a href="/" type="button" class="btn_back btn btn-outline-light w-50">Выход</a>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="blocks/footer :: footer"></footer>
+<div th:insert="blocks/script-integration"></div>
+<script src="/js/for_sht.js"></script>
+
+</body>
+</html>

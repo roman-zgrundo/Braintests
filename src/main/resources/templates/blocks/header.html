@@ -1,0 +1,83 @@
+<div th:fragment="header" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+
+    <div class="collapse" id="navbarToggleExternalContent">
+        <div class="bg-dark p-4">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <div sec:authorize="hasRole('ADMIN')" class="dropdown me-3">
+                    <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-toggle="dropdown" aria-expanded="false">
+                        Добавить в тренажеры:
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-warning" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="/runningtext/add">Добавить текст в "Исчезающий текст"</a>
+                        </li>
+                        <li><a class="dropdown-item" href="/flashingwords/add">Добавить набор слов в "Флеш-слова"</a>
+                        </li>
+                        <li><a class="dropdown-item" href="/distributewords/add">Добавить набор слов в "Распредели слова"</a>
+                        </li>
+                    </ul>
+                </div>
+                <li class="d-inline-block"><a sec:authorize="hasAnyRole('ADMIN', 'TEACHER')" href="/registration"
+                                              type="button"
+                                              class="btn btn-outline-warning mx-1 fs-6">Добавить пользователя</a>
+                </li>
+                <li class="d-inline-block"><a sec:authorize="hasAnyRole('ADMIN')" href="/teachers" type="button"
+                                              class="btn btn-outline-warning mx-1 fs-6">Тренеры</a></li>
+                <li class="d-inline-block"><a sec:authorize="hasAnyRole('ADMIN', 'TEACHER')" href="/students"
+                                              type="button"
+                                              class="btn btn-outline-warning mx-1 fs-6">Ученики</a></li>
+                <li class="d-inline-block"><a sec:authorize="hasAnyRole('ADMIN')" href="/accounts" type="button"
+                                              class="btn btn-outline-warning mx-1 fs-6">Аккаунты</a></li>
+            </ul>
+
+
+        </div>
+    </div>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a href="/"
+               class="text-white d-flex align-items-center mb-md-0 me-md-auto text-decoration-none fs-4 fw-bold">ITkinder</a>
+
+            <div sec:authorize="isAuthenticated()" class="dropdown me-3">
+                <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-expanded="false">
+                    Навигация
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="/">Главное меню</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="/runningtext">Исчезающий текст</a></li>
+                    <li><a class="dropdown-item" href="/schultetable">Таблица Шульте</a></li>
+                    <li><a class="dropdown-item" href="/stroop">Тест Струпа</a></li>
+                    <li><a class="dropdown-item" href="/flashingwords">Флеш-слова</a></li>
+                    <li><a class="dropdown-item" href="/distributewords">Распредели слова</a></li>
+                </ul>
+            </div>
+
+            <div class="text-end">
+                <!--                        <a sec:authorize="isAuthenticated()" th:inline="text" class="fs-5 text-white text-decoration-none">Привет, [[${#httpServletRequest.remoteUser}]]</a>-->
+                <a sec:authorize="isAuthenticated()" href="/profile" type="button"
+                   class="btn btn-outline-light mx-0 fs-6">Профиль</a>
+                <form sec:authorize="isAuthenticated()" type="button" class="btn btn-warning py-0"
+                      th:action="@{/logout}" method="post">
+                    <input type="submit" class="btn btn-warning fs-6" value="Выход"/>
+                </form>
+                <a sec:authorize="!isAuthenticated()" href="/login" type="button"
+                   class="btn btn-outline-light mx-1 fs-6">Вход</a>
+                <!--                <a sec:authorize="!isAuthenticated()" href="/registration" type="button"-->
+                <!--                   class="btn btn-outline-light mx-1 fs-6">Регистрация</a>-->
+            </div>
+            <button sec:authorize="hasAnyRole('ADMIN', 'TEACHER')"
+                    class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                    aria-expanded="false" aria-label="Переключатель навигации">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+
+    </nav>
+    <!--&ndash;&gt;-->
+</div>

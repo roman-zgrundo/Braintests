@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/css/for_rt.css"/>
+</head>
+<body>
+<header class="sticky-top" th:insert="blocks/header :: header"></header>
+
+
+<main class="w-75 m-auto text-center mt-5">
+    <div th:each="el : ${text}">
+        <form method="post">
+            <h1 class="h3 mb-3 fw-normal">Изменение текста</h1>
+            <input type="text" name="name" th:value="${el.name}" placeholder="Название текста" class="form-control">
+            <br>
+            <textarea name="text" th:text="${el.text}" placeholder="Текст" class="form-control"
+                      style="height: 400px"></textarea>
+            <br>
+            <input type="number" name="world_count" th:value="${el.world_count}" placeholder="Количество слов"
+                   class="form-control"><br>
+            <input type="text" name="q1" th:value="${el.q1}" placeholder="Первый вопрос" class="form-control"><br>
+            <input type="text" name="q2" th:value="${el.q2}" placeholder="Второй вопрос" class="form-control"><br>
+            <input type="text" name="q3" th:value="${el.q3}" placeholder="Третий вопрос" class="form-control"><br>
+            <input type="text" name="q4" th:value="${el.q4}" placeholder="Четвертый вопрос" class="form-control"><br>
+            <input type="text" name="q5" th:value="${el.q4}" placeholder="Пятый вопрос" class="form-control"><br>
+            <button type="submit" class="w-50 btn btn-lg btn-warning">Обновить</button>
+        </form>
+    </div>
+</main>
+
+</div>
+<footer th:insert="blocks/footer :: footer"></footer>
+<div th:insert="blocks/script-integration"></div>
+</body>
+</html>

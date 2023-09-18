@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/css/for_rt.css"/>
+</head>
+<body>
+<header class="sticky-top" th:insert="blocks/header :: header"></header>
+
+
+<main class="w-75 m-auto text-center mt-5">
+    <div th:each="el : ${topic}">
+        <form method="post">
+            <h1 class="h3 mb-3 fw-normal">Изменение "Распредели слова"</h1>
+
+            <input type="text" name="topic" th:value="${el.topic}" placeholder="Общее название" class="form-control"><br>
+            <input type="text" name="name1" th:value="${el.name1}" placeholder="Название 1-ого столбца" class="form-control"><br>
+            <textarea name="column1" th:text="${el.column1}" placeholder="Слова 1-ого столбца (записывать через пробел)" class="form-control" style="height: 400px"></textarea><br>
+            <input type="text" name="name2" th:value="${el.name2}" placeholder="Название 2-ого столбца" class="form-control"><br>
+            <textarea name="column2" th:text="${el.column2}" placeholder="Слова 2-ого столбца (записывать через пробел)" class="form-control" style="height: 400px"></textarea><br>
+            <button type="submit" class="w-50 btn btn-lg btn-warning">Обновить</button>
+        </form>
+    </div>
+</main>
+
+</div>
+<footer th:insert="blocks/footer :: footer"></footer>
+<div th:insert="blocks/script-integration"></div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/css/for_distributewords.css"/>
+    <!-- Подключение SortableJS через CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+
+</head>
+<body th:each="el : ${topic}">
+<header class="sticky-top" th:insert="blocks/header :: header"></header>
+
+
+<p th:text="${el.column1}" class="d-none" id="column1"></p>
+<p th:text="${el.column2}" class="d-none" id="column2"></p>
+
+<div class="container text-center mt-5">
+    <div id="shared-lists" class="row">
+        <h1 th:text="${el.topic}" id="topic" class="col-12"></h1>
+    </div>
+</div>
+
+<div id="choose_count_words">
+    <div class="container text-center mt-3">
+        <label for="customRange3" class="form-label ">Количество слов</label>
+        <input type="range" class="form-range ms-5 w-25 pt-3" min="2" max="10" step="2" id="customRange3" value="6">
+        <p class="range_result my-4" id="range_result"></p>
+    </div>
+    <div class="mx-auto col-2 gap-2 d-grid">
+        <button type="button" class="btn_start btn btn-outline-dark">Начать</button>
+    </div>
+</div>
+
+
+<div class="container text-center mt-5" id="game_container">
+
+    <div class="timer">
+        <div class="time-minutes"></div>
+        <span class="span-timer">:</span>
+        <div class="time-seconds"></div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <p th:text="${el.name1}" class="fs-4" id="name1"></p>
+            <div id="lists1-left" class="list-group">
+            </div>
+        </div>
+        <div class="col">
+            <p class="fs-4">&nbsp;</p>
+            <div id="lists1-center" class="list-group">
+                <!-- Создаем пустой список для слов -->
+                <div id="shuffle-list" class="d-none">
+                    <div th:each="word : ${column1Words}" th:text="${word}"></div>
+                    <div th:each="word : ${column2Words}" th:text="${word}"></div>
+                </div>
+
+                <!-- Сюда будут вставлены перемешанные слова -->
+                <div id="shuffled-words" class="list-group"></div>
+            </div>
+        </div>
+
+        <div class="col">
+            <p th:text="${el.name2}" class="fs-4" id="name2">Несъедобное</p>
+            <div id="lists1-right" class="list-group">
+            </div>
+        </div>
+    </div>
+    <div class="mx-auto mt-5 col-2 gap-2 d-grid">
+        <button type="button" class="btn_check btn btn-outline-dark">Проверить</button>
+    </div>
+</div>
+
+
+<div class="popUp">
+    <div class="text-center">
+        <div>Ты победил!!!</div>
+        <span class="popUp-timer">Время: <span class="popUp-minutes"></span>:<span class="popUp-seconds"></span></span>
+        <div class="popUp-mistake"></div>
+        <div class="m-auto text-center">
+            <a th:href="@{/distributewords/{id}(id=${id})}" type="button"
+               class="btn_back btn btn-outline-light w-50">Начать еще раз</a>
+
+            <a href="/" type="button" class="btn_back btn btn-outline-light w-50">Выход</a>
+        </div>
+    </div>
+</div>
+
+<footer th:insert="blocks/footer :: footer"></footer>
+<div th:insert="blocks/script-integration"></div>
+
+<!--<script src="/js/for_distributewords(BackUp).js"></script>-->
+<script src="/js/for_distributewords.js"></script>
+</body>
+</html>
