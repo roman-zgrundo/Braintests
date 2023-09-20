@@ -153,6 +153,8 @@ console.log(selectedWords);
         } else if (seconds >= 10) {
             timeSeconds.innerHTML = seconds;
         }
+
+        timeMinutes.innerHTML = minutes;
     }
     setInterval(time, 1000)
 

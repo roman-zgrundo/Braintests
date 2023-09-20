@@ -101,7 +101,7 @@ wrapper.addEventListener('click', function(e) {
         // console.log(minutes*60+seconds);
 
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://78.110.62.84:8088/schultetable");
+        xhr.open("POST", "http://45.90.46.161:8088/schultetable");
         // xhr.open("POST", "http://localhost:8088/schultetable");
         xhr.setRequestHeader("Accept", "application/json");
         xhr.setRequestHeader("Content-Type", "application/json");
