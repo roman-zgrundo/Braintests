@@ -17,7 +17,7 @@
 
 
     <div class="container mt-5">
-        <table class="table table-dark text-center">
+        <table class="table table-dark text-center" id="my_table">
             <thead>
             <tr class="for-table-head">
                 <th scope="col">#</th>
@@ -30,7 +30,7 @@
             <tbody th:each="el, state : ${users}">
             <tr class="table-active align-middle">
                 <form method="post" th:if="${#strings.toString(el.teacher) == user.getName()}">
-                    <th th:utext="${state.index}+1" class="for-table"></th>
+                    <th class="for-table"></th>
                     <td th:text="${el.name}" class="py-4 for-table"></td>
                     <td th:text="${expenseSumMap[el.id]}" class="py-4 for-table"></td>
                     <td>
@@ -112,6 +112,7 @@
 <footer th:insert="blocks/footer :: footer"></footer>
 <div th:insert="blocks/script-integration"></div>
 <script src="/js/for_payment_modal.js"></script>
+<script src="/js/for_num_row_in_table.js"></script>
 </body>
 </html>
 

@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface Stat_ShtRepo extends CrudRepository<Stat_Sht, Long> {
     List<Stat_Sht> findAllByUserId(Long userId);
-//    List<Stat_Sht> findByTop5ByUserId(Long userId);
+    void deleteByUserId(Long userId);
 }

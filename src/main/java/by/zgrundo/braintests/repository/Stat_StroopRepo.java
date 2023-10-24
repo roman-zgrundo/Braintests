@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface Stat_StroopRepo extends CrudRepository<Stat_Stroop, Long> {
     List<Stat_Stroop> findAllByUserId(Long userId);
+    void deleteByUserId(Long userId);
 }

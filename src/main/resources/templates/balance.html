@@ -73,14 +73,13 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col" th:if="${#strings.toString(user.getRole()) != 'ROLE_USER'}">
-                        Кол-во уроков</th>
+                        Кол-во уроков
+                    </th>
                     <th scope="col" th:if="${#strings.toString(user.getRole()) == 'ROLE_USER'}">Сумма</th>
                     <th scope="col">Действие</th>
                     <th scope="col">Комментарий</th>
                     <th scope="col">Дата</th>
-                    <th sec:authorize="hasAnyRole('ADMIN', 'TEACHER')"
-                        th:if="${(#strings.toString(user.getName()) != #httpServletRequest.remoteUser and #strings.toString(user.getRole()) != 'ROLE_ADMIN')
-             or #strings.toString(user.getRole()) == 'ROLE_ADMIN'}"></th>
+                    <th sec:authorize="hasAnyRole('ADMIN', 'TEACHER')"></th>
                 </tr>
                 </thead>
                 <tbody th:each="el, state : ${balance_history}">
@@ -90,10 +89,14 @@
                     <td th:text="${el.getAction().getActionValue()}"></td>
                     <td th:text="${el.getComment()}"></td>
                     <td th:text="${el.getActionDate()}"></td>
-                    <td style="width: 0;" sec:authorize="hasAnyRole('ADMIN', 'TEACHER')"
-                        th:if="${(#strings.toString(user.getName()) != #httpServletRequest.remoteUser and #strings.toString(user.getRole()) != 'ROLE_ADMIN')
-             or #strings.toString(user.getRole()) == 'ROLE_ADMIN'}">
-                        <form th:action="@{'/accounts/profile/' + ${user.id} + '/balance/' + ${el.id} + '/delete'}"
+<!--                    <td th:text="${el.createdAt}"></td>-->
+<!--                    <td th:text="${durationList[state.index]}"></td>-->
+
+                    <td style="width: 0;" sec:authorize="hasAnyRole('ADMIN', 'TEACHER')">
+                        <form
+                                th:if="${(#strings.toString(user.getName()) != #httpServletRequest.remoteUser and durationList[state.index] < 24 and #authorization.expression('hasAnyRole(''ROLE_TEACHER'')'))
+          or #authorization.expression('hasAnyRole(''ROLE_ADMIN'')')}"
+                                th:action="@{'/accounts/profile/' + ${user.id} + '/balance/' + ${el.id} + '/delete'}"
                               method="post">
                             <button class="btn btn-outline-danger d-inline-block" style="border: none;" type="submit">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
@@ -114,6 +117,7 @@
 
 <div th:insert="blocks/script-integration"></div>
 <script src="/js/for_payment_modal.js"></script>
+<script src="/js/for_balance_in_profile.js"></script>
 </body>
 </html>
 

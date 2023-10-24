@@ -8,6 +8,7 @@ import by.zgrundo.braintests.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -50,7 +52,11 @@ public class AccountsController {
         if (action.equals("WRITE_OFF")) {
             expense = expense.negate(); // Изменяем знак суммы на отрицательный для WRITE_OFF
         }
-        BalanceHistory balanceHistory = new BalanceHistory(userId, expense, comment, actionDate, action);
+
+        // Получаем текущую дату и время
+        LocalDateTime createdAt = LocalDateTime.now();
+
+        BalanceHistory balanceHistory = new BalanceHistory(userId, expense, comment, actionDate, action, createdAt);
 
         balanceHistoryRepo.save(balanceHistory);
         return "redirect:/accounts";
@@ -66,8 +72,28 @@ public class AccountsController {
             expenseSumMap.put(userId, expenseSum);
         }
         Iterable<User> users = userRepository.findAll();
+        List<User> activeUsers = new ArrayList<>();
+        List<User> inactiveUsers = new ArrayList<>();
+
+        for (User user : users) {
+            if (user.isActive()) {
+                activeUsers.add(user);
+            } else {
+                inactiveUsers.add(user);
+            }
+        }
+
+        // Отсортируйте оба списка пользователей
+        Collections.sort(activeUsers, Comparator.comparing(User::getName));
+        Collections.sort(inactiveUsers, Comparator.comparing(User::getName));
+
+        // Объедините списки
+        List<User> sortedUsers = new ArrayList<>();
+        sortedUsers.addAll(activeUsers);
+        sortedUsers.addAll(inactiveUsers);
+
         model.addAttribute("user", userService.findOne(userDetails.getUser().getId()));
-        model.addAttribute("users", users);
+        model.addAttribute("users", sortedUsers);
         model.addAttribute("expenseSumMap", expenseSumMap);
         return "accounts";
     }
@@ -157,6 +183,29 @@ public class AccountsController {
 
     }
 
+    @PostMapping("/accounts/deleteUser")
+    @Transactional
+    public String deleteUser(@RequestParam("userId") Long userId) {
+        // Проверка наличия записей в таблице BalanceHistory для данного пользователя
+        List<BalanceHistory> balanceHistoryEntries = balanceHistoryRepo.findAllByUserId(userId);
+
+        // Перенаправление на страницу пользователей после удаления
+        if (!balanceHistoryEntries.isEmpty()) {
+            // Есть записи в BalanceHistory - вывести сообщение и не удалять
+            // Здесь вы можете добавить логику отображения сообщения пользователю
+            // о необходимости очистки баланса перед удалением.
+            // Затем вернуть представление с сообщением, а не перенаправлять.
+        } else {
+            // Нет записей в BalanceHistory - удалить пользователя и его статистику
+            stat_flWRepo.deleteByUserId(userId);
+            stat_rtRepo.deleteByUserId(userId);
+            stat_shtRepo.deleteByUserId(userId);
+            stat_stroopRepo.deleteByUserId(userId);
+            userRepository.deleteById(userId);
+
+        }
+        return "redirect:/accounts"; // Заглушка, может потребоваться изменить.
+    }
 
 
 }

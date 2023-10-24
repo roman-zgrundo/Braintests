@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface Stat_FlWRepo extends CrudRepository<Stat_FlW, Long> {
     List<Stat_FlW> findAllByUserId(Long userId);
+    void deleteByUserId(Long userId);
 }

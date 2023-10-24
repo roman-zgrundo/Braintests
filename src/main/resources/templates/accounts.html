@@ -105,6 +105,42 @@
                             <input type="submit" class="btn btn-warning m-1" value="Изменить статус"
                                    th:if="${#strings.toString(el.name)} != ${user.getName()}">
                         </form>
+
+                        <!-- Кнопка-триггер модального окна для удаления -->
+                        <button type="button" th:if="${#strings.toString(el.name)} != ${user.getName()}"
+                                class="btn btn-outline-danger d-inline-block" style="border: none;" data-bs-toggle="modal"
+                                th:data-bs-target="'#DeleteModal' + ${el.id}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                 class="bi bi-x-square-fill" viewBox="0 0 16 16">
+                                <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"/>
+                            </svg>
+                        </button>
+
+                        <!-- Модальное окно для подтверждения удаления -->
+                        <div class="modal fade" th:id="'DeleteModal' + ${el.id}" tabindex="-1"
+                             aria-labelledby="DeleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-dark" id="DeleteModalLabel">Удаление
+                                            пользователя</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Закрыть"></button>
+                                    </div>
+                                    <div class="modal-body text-dark">
+                                        <p th:text="'Вы уверены, что хотите удалить пользователя &quot;' + ${el.name} + '&quot;?'"></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена
+                                        </button>
+                                        <form th:action="@{/accounts/deleteUser}" method="post">
+                                            <input type="hidden" name="userId" th:value="${el.id}"/>
+                                            <button type="submit" class="btn btn-danger">Удалить</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </form>
             </tr>
@@ -117,6 +153,7 @@
 <footer th:insert="blocks/footer :: footer"></footer>
 <div th:insert="blocks/script-integration"></div>
 <script src="/js/for_payment_modal.js"></script>
+<script src="/js/"></script>
 </body>
 </html>
 

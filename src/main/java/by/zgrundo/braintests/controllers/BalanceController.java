@@ -8,15 +8,17 @@ import by.zgrundo.braintests.service.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class BalanceController {
@@ -48,6 +50,22 @@ public class BalanceController {
         // Вычитаем количество списаний из баланса учителя
         balance = balance.subtract(new BigDecimal(count));
 
+        LocalDateTime now = LocalDateTime.now();
+        model.addAttribute("now", now);
+
+        // Создайте список для хранения разностей времени
+        List<Long> durationList = new ArrayList<>();
+
+// Пройдитесь по каждой записи в balanceHistoryList и вычислите разность
+        for (BalanceHistory history : balanceHistoryList) {
+            Duration duration = Duration.between(history.getCreatedAt(), now);
+            long hoursBetween = duration.toHours(); // Получите разность в часах
+            durationList.add(hoursBetween); // Добавьте разность в список
+        }
+
+// Теперь передайте durationList в модель
+        model.addAttribute("durationList", MainController.reverse(durationList));
+
         model.addAttribute("user", userService.findOne(id));
         model.addAttribute("balance_history", MainController.reverse(balanceHistoryList));
         model.addAttribute("expenseSum", expenseSum);
@@ -75,6 +93,22 @@ public class BalanceController {
         }
         // Вычитаем количество списаний из баланса учителя
         balance = balance.subtract(new BigDecimal(count));
+
+        LocalDateTime now = LocalDateTime.now();
+        model.addAttribute("now", now);
+
+        // Создайте список для хранения разностей времени
+        List<Long> durationList = new ArrayList<>();
+
+// Пройдитесь по каждой записи в balanceHistoryList и вычислите разность
+        for (BalanceHistory history : balanceHistoryList) {
+            Duration duration = Duration.between(history.getCreatedAt(), now);
+            long hoursBetween = duration.toHours(); // Получите разность в часах
+            durationList.add(hoursBetween); // Добавьте разность в список
+        }
+
+// Теперь передайте durationList в модель
+        model.addAttribute("durationList", MainController.reverse(durationList));
 
         model.addAttribute("teachear_balance", balance);
         model.addAttribute("user", userService.findOne(userDetails.getUser().getId()));
@@ -105,11 +139,20 @@ public class BalanceController {
         if (action.equals("WRITE_OFF")) {
             expense = expense.negate(); // Изменяем знак суммы на отрицательный для WRITE_OFF
         }
-        BalanceHistory balanceHistory = new BalanceHistory(userId, expense, comment, actionDate, action);
+
+        // Получаем текущую дату и время
+        LocalDateTime createdAt = LocalDateTime.now();
+
+        BalanceHistory balanceHistory = new BalanceHistory(userId, expense, comment, actionDate, action, createdAt);
 
         balanceHistoryRepo.save(balanceHistory);
         return "redirect:/accounts/profile/{userId}/balance";
     }
 
+    private boolean isLessThan24Hours(LocalDateTime createdAt) {
+        LocalDateTime now = LocalDateTime.now();
+        long hoursBetween = ChronoUnit.HOURS.between(createdAt, now);
+        return hoursBetween < 24;
+    }
 
 }

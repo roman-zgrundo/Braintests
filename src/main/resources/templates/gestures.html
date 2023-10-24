@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/css/gestures.css"/>
+</head>
+<body>
+<header class="sticky-top" th:insert="blocks/header :: header"></header>
+
+<div class="body">
+    <div class="container text-center mt-3" id="start_param">
+<!--        <p th:text="${user.getId()}" class="start" id="id_user"></p>-->
+        <label for="customRange1" class="form-label mt-4" id>Количество жестов</label>
+        <input type="range" class="form-range ms-5 w-50 pt-3" min="5" max="50" step="5" id="customRange1" value="15">
+        <p class="range_result mt-2" id="range_result1"></p>
+
+        <label for="customRange2" class="form-label mt-4">Скорость</label>
+        <input type="range" class="form-range ms-5 w-50 pt-3" min="0.5" max="5" step="0.1" id="customRange2" value="2">
+        <p class="range_result mt-2" id="range_result2"></p>
+
+        <div class="form-check form-switch d-flex justify-content-center my-5">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitch" checked>
+            <label class="form-check-label ms-3" for="flexSwitch" id="labelForFlexSwitch">Зеркальные жесты</label>
+        </div>
+    </div>
+
+
+    <div class="mx-auto col-2 gap-2 d-grid">
+        <button type="button" class="btn_start btn btn-outline-dark" id="btn_start">Начать</button>
+    </div>
+    <div class="timer" id="my_timer">
+        <div class="time-minutes"></div>
+        <span class="span-timer">:</span>
+        <div class="time-seconds"></div>
+    </div>
+    <div class="wrapper d-flex justify-content-center"></div>
+    <div class="popUp">
+        <div class="text-center">
+            <div>Молодец!!!</div>
+<!--            <span class="popUp-timer">Время: <span class="popUp-minutes"></span>:<span-->
+<!--                    class="popUp-seconds"></span></span>-->
+<!--            <div class="popUp-mistake"></div>-->
+            <div class="m-auto text-center">
+                <a href="/schultetable" type="button" class="btn_back btn btn-outline-light w-50">Начать еще раз</a>
+                <a href="/" type="button" class="btn_back btn btn-outline-light w-50">Выход</a>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="blocks/footer :: footer"></footer>
+<div th:insert="blocks/script-integration"></div>
+<script src="/js/gestures.js"></script>
+
+</body>
+</html>

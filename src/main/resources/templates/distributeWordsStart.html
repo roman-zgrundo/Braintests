@@ -19,7 +19,7 @@
 
 <div class="container text-center mt-5">
     <div id="shared-lists" class="row">
-        <h1 th:text="${el.topic}" id="topic" class="col-12"></h1>
+        <h1 th:text="${el.topic}" id="topic" class="col-12 topic"></h1>
     </div>
 </div>
 
@@ -45,12 +45,12 @@
 
     <div class="row">
         <div class="col">
-            <p th:text="${el.name1}" class="fs-4" id="name1"></p>
+            <p th:text="${el.name1}" class="fs-1" id="name1"></p>
             <div id="lists1-left" class="list-group">
             </div>
         </div>
         <div class="col">
-            <p class="fs-4">&nbsp;</p>
+            <p class="fs-1">&nbsp;</p>
             <div id="lists1-center" class="list-group">
                 <!-- Создаем пустой список для слов -->
                 <div id="shuffle-list" class="d-none">
@@ -64,7 +64,7 @@
         </div>
 
         <div class="col">
-            <p th:text="${el.name2}" class="fs-4" id="name2">Несъедобное</p>
+            <p th:text="${el.name2}" class="fs-1" id="name2">Несъедобное</p>
             <div id="lists1-right" class="list-group">
             </div>
         </div>

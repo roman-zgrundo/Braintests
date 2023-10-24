@@ -6,9 +6,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface BalanceHistoryRepo extends JpaRepository<BalanceHistory, Long> {
+
+    // Добавляем метод для поиска последней даты списания по userId
+    @Query("SELECT MAX(bh.actionDate) FROM BalanceHistory bh WHERE bh.userId = :userId AND bh.action = 'WRITE_OFF'")
+    String findLastExpenseDateByUserId(@Param("userId") Long userId);
+
+
     @Query("SELECT SUM(bh.expense) FROM BalanceHistory bh WHERE bh.userId = :userId")
     BigDecimal getExpenseSumByUserId(@Param("userId") Long userId);
 

@@ -109,9 +109,9 @@ BtnStart.addEventListener('click', function () {
         listItem.textContent = word;
 
         if (selectedWordsFromColumn1.includes(word)) {
-            listItem.classList.add('list-group-item', 'for_left_list');
+            listItem.classList.add('list-group-item', 'for_left_list', 'fs-1');
         } else if (selectedWordsFromColumn2.includes(word)) {
-            listItem.classList.add('list-group-item', 'for_right_list');
+            listItem.classList.add('list-group-item', 'for_right_list', 'fs-1');
         }
 
         shuffledWords.appendChild(listItem);

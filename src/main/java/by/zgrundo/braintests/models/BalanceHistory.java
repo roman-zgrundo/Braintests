@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -35,12 +36,16 @@ public class BalanceHistory {
     @Enumerated(EnumType.STRING)
     private ActionWithBalance action;
 
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
     public BalanceHistory(Long userId, BigDecimal expense, String comment, String actionDate,
-                        String action) {
+                        String action, LocalDateTime createdAt) {
         this.userId = userId;
         this.expense = expense;
         this.comment = comment;
         this.actionDate = actionDate;
         this.action = ActionWithBalance.valueOf(action);
+        this.createdAt = createdAt;
     }
 }

@@ -13,9 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Controller
 public class StudentsController {
@@ -44,8 +43,28 @@ public class StudentsController {
         }
 
         Iterable<User> users = userRepository.findAll();
+        List<User> activeUsers = new ArrayList<>();
+        List<User> inactiveUsers = new ArrayList<>();
+
+        for (User user : users) {
+            if (user.isActive()) {
+                activeUsers.add(user);
+            } else {
+                inactiveUsers.add(user);
+            }
+        }
+
+        // Отсортируйте оба списка пользователей
+        Collections.sort(activeUsers, Comparator.comparing(User::getName));
+        Collections.sort(inactiveUsers, Comparator.comparing(User::getName));
+
+        // Объедините списки
+        List<User> sortedUsers = new ArrayList<>();
+        sortedUsers.addAll(activeUsers);
+        sortedUsers.addAll(inactiveUsers);
+
         model.addAttribute("user", userService.findOne(userDetails.getUser().getId()));
-        model.addAttribute("users", users);
+        model.addAttribute("users", sortedUsers);
         model.addAttribute("expenseSumMap", expenseSumMap);
         return "students";
     }
@@ -68,7 +87,11 @@ public class StudentsController {
         if (action.equals("WRITE_OFF")) {
             expense = expense.negate(); // Изменяем знак суммы на отрицательный для WRITE_OFF
         }
-        BalanceHistory balanceHistory = new BalanceHistory(userId, expense, comment, actionDate, action);
+
+        // Получаем текущую дату и время
+        LocalDateTime createdAt = LocalDateTime.now();
+
+        BalanceHistory balanceHistory = new BalanceHistory(userId, expense, comment, actionDate, action, createdAt);
 
         balanceHistoryRepo.save(balanceHistory);
         return "redirect:/students";
