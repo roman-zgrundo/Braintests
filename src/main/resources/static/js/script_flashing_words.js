@@ -145,13 +145,6 @@ function removeButtons() {
     popUpMistake.innerHTML = `Количество ошибок: ${mistakeCount}`;
     popUpWordCount.innerHTML = `Количество слов: ${wordCountValue}`;
     btn.classList.remove('active');
-    // RangeResult.classList.remove('active');
-    // time.classList.remove('active');
-    // labelR3.classList.remove('active');
-    // labelR4.classList.remove('active');
-    // RangeResult4.classList.remove('active');
-    // chosenWordCount.classList.remove('active');
-    // btnExit.classList.remove('active');
 
 
     saveInDB();

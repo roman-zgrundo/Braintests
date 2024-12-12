@@ -36,6 +36,7 @@ public class SecurityConfiguration {
                 .antMatchers("/editrt/{id}", "/runningtext/add").hasRole("ADMIN")
                 .antMatchers("/editflashingwords/{id}", "/flashingwords/add").hasRole("ADMIN")
                 .antMatchers("/editdistributewords/{id}", "/distributewords/add").hasRole("ADMIN")
+                .antMatchers("/editgestureswords", "/gesturesgwords/add").hasRole("ADMIN")
                 .antMatchers("/accounts", "/adminedituser/{id}", "/teachers", "/students/teacher/{id}").hasRole("ADMIN")
                 .antMatchers("/registration", "/students", "/homework/{id}", "/accounts/profile/{id}", "/accounts/profile/{id}/{count_sort}", "/accounts/profile/{id}/balance").hasAnyRole("ADMIN", "TEACHER")
                 .antMatchers("/accounts/deleteUser").hasRole("ADMIN")

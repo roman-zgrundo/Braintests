@@ -12,7 +12,14 @@ const timeSeconds = document.querySelector('.time-seconds')
 const idUser = document.getElementById('id_user')
 const flexSwitch = document.getElementById('flexSwitch')
 const labelForFlexSwitch = document.getElementById('labelForFlexSwitch')
+const flexSwitchForWords = document.getElementById('flexSwitchForWords')
+const labelForFlexSwitchForWords = document.getElementById('labelForFlexSwitchForWords')
 const startParam = document.getElementById('start_param')
+
+const fieldForWords = document.getElementById('field_for_words')
+const fieldForWordsFromGetMapping = document.getElementById('field_for_words_from_getMapping')
+startWords = fieldForWordsFromGetMapping.textContent;
+
 
 const RangeSpeed = document.getElementById('customRange1')
 const RangeCount = document.getElementById('customRange2')
@@ -43,6 +50,26 @@ const startImageUrls = [
 ];
 let imageUrls;
 
+// Создайте новые объекты изображений и установите их src для предварительной загрузки
+const preloadedImages = startImageUrls.map(url => {
+    const img = new Image();
+    img.src = `/image/palms/${url}`;
+    return img;
+});
+
+// Дождитесь загрузки всех изображений
+Promise.all(preloadedImages.map(img => {
+    return new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+    });
+})).then(() => {
+    console.log('Все изображения успешно предварительно загружены.');
+    // Здесь вы можете запустить ваш код для отображения изображений
+}).catch(error => {
+    console.error('Произошла ошибка при предварительной загрузке изображений:', error);
+});
+
 
 RangeResult1.innerText = 'Выбрано жестов: ' + RangeSpeed.value;
 size1 = RangeSpeed.value;
@@ -59,6 +86,23 @@ RangeCount.addEventListener('input', function () {
     RangeResult2.innerText = 'Выбрана скорость: ' + RangeCount.value;
     size2 = RangeCount.value;
 })
+
+
+
+//fieldForWords.innerText = startWords
+const wordsArray = startWords.split(/\s+/);
+let currentWordIndex;
+// Функция для случайной сортировки
+const shuffle = (array) => {
+  return array.sort(() => Math.random() - 0.5);
+};
+
+const shuffledArray = shuffle(wordsArray);
+console.log(shuffledArray);
+
+
+
+
 
 btn.addEventListener('click', function () {
 
@@ -77,9 +121,10 @@ btn.addEventListener('click', function () {
     labelForFlexSwitch.classList.add('start')
 
     isChecked = flexSwitch.checked;
+    isCheckedForWords = flexSwitchForWords.checked;
 
 
-// Можно выполнить необходимые действия на основе состояния переключателя
+// действия на основе состояния переключателя
     if (isChecked) {
         console.log('1------------------');
         imageUrls = startImageUrls;
@@ -175,6 +220,14 @@ btn.addEventListener('click', function () {
     console.log("Перемешанный массив изображений:");
     console.log(imagePairs);
 
+if (isCheckedForWords) {
+        console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+        console.log('Слова ВКЛЮЧЕНЫ');
+        } else {
+
+        console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+        console.log('Слова ОТКЛЮЧЕНЫ');
+        }
 
     // Подгрузите пару изображений на экран с учетом скорости size2
     function displayImagePair(pairIndex) {
@@ -189,23 +242,32 @@ btn.addEventListener('click', function () {
         currentIndex = (currentIndex + 1) % imagePairs.length;
     }
 
-    // Отобразите первую пару изображений немедленно
-    // displayImagePair(0);
 
 // Запустите интервал для смены пар изображений с заданной скоростью
     const interval = setInterval(() => {
         if (currentIndex < imagePairs.length) {
             displayImagePair(currentIndex);
-            currentIndex++;
+            if (isCheckedForWords) {
+                        // Получаем случайное слово из shuffledArray и обновляем содержимое поля
+                        currentWordIndex = getRandomIndex(shuffledArray.length);
+                        const currentWord = shuffledArray[currentWordIndex];
+                        fieldForWords.innerText = currentWord;
+                        }
+
+                        currentIndex++;
         } else {
             clearInterval(interval); // Останавливаем интервал после окончания показа картинок
             clearDisplay(); // Очистить содержимое и восстановить элементы управления
+
         }
     }, size2 * 1000);
 
 
 });
 
+function getRandomIndex(max) {
+    return Math.floor(Math.random() * max);
+}
 
 function time() {
     seconds = seconds + 1;
@@ -244,8 +306,10 @@ function clearDisplay() {
     // Восстановить контрольные элементы
     MyTimer.style.display = 'none';
     btn.style.display = '';
+    fieldForWords.innerText = '';
     startParam.classList.remove('start')
     flexSwitch.classList.remove('start')
     labelForFlexSwitch.classList.remove('start')
+
 }
 

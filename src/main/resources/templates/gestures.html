@@ -10,7 +10,8 @@
 <body>
 <header class="sticky-top" th:insert="blocks/header :: header"></header>
 
-<div class="body">
+<div class="body" th:each="el : ${words}">
+    <p class="for-words d-none" th:text="${el.words}" id="field_for_words_from_getMapping"></p>
     <div class="container text-center mt-3" id="start_param">
 <!--        <p th:text="${user.getId()}" class="start" id="id_user"></p>-->
         <label for="customRange1" class="form-label mt-4" id>Количество жестов</label>
@@ -21,9 +22,13 @@
         <input type="range" class="form-range ms-5 w-50 pt-3" min="0.5" max="5" step="0.1" id="customRange2" value="2">
         <p class="range_result mt-2" id="range_result2"></p>
 
-        <div class="form-check form-switch d-flex justify-content-center my-5">
+        <div class="form-check form-switch d-flex justify-content-center mt-5 mb-3">
             <input class="form-check-input" type="checkbox" role="switch" id="flexSwitch" checked>
             <label class="form-check-label ms-3" for="flexSwitch" id="labelForFlexSwitch">Зеркальные жесты</label>
+        </div>
+        <div class="form-check form-switch d-flex justify-content-center mb-5">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchForWords" checked>
+            <label class="form-check-label ms-3" for="flexSwitchForWords" id="labelForFlexSwitchForWords">Слова</label>
         </div>
     </div>
 
@@ -37,6 +42,9 @@
         <div class="time-seconds"></div>
     </div>
     <div class="wrapper d-flex justify-content-center"></div>
+    <div class="wrapper d-flex justify-content-center">
+        <p class="for-words" id="field_for_words"></p>
+    </div>
     <div class="popUp">
         <div class="text-center">
             <div>Молодец!!!</div>

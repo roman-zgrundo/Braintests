@@ -13,12 +13,9 @@ public class Flashing_words {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-
     private String name;
-
     @Column(columnDefinition = "LONGTEXT")
     private String words;
-
     private int word_count;
 
     public Flashing_words(String name, String words, int word_count) {

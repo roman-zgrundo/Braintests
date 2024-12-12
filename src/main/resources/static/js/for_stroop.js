@@ -1,17 +1,9 @@
-// const wrapper = document.querySelector('.wrapper');
-// let activeItem = wrapper.querySelectorAll('.active')
-// let size =3;
-// wrapper.style.gridTemplateColumns = `${'1fr '.repeat(size)}`;
-// let arr = [];
 let index = 0;
 let mistake = 0;
 let now = '';
 const popUp = document.querySelector('.popUp')
-// const timeMinutes = document.querySelector('.time-minutes')
-// const popUpMinutes = document.querySelector('.popUp-minutes')
 const popUpMistake = document.querySelector('.popUp-mistake')
 const popUpTrue = document.querySelector('.popUp-true')
-// const popUpSeconds = document.querySelector('.popUp-seconds')
 const timeSeconds = document.querySelector('.time-seconds')
 const idUser = document.getElementById('id_user')
 

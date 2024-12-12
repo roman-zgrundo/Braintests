@@ -9,12 +9,11 @@
                         Добавить в тренажеры:
                     </button>
                     <ul class="dropdown-menu dropdown-menu-warning" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="/runningtext/add">Добавить текст в "Исчезающий текст"</a>
-                        </li>
-                        <li><a class="dropdown-item" href="/flashingwords/add">Добавить набор слов в "Флеш-слова"</a>
-                        </li>
-                        <li><a class="dropdown-item" href="/distributewords/add">Добавить набор слов в "Распредели слова"</a>
-                        </li>
+                        <li><a class="dropdown-item" href="/runningtext/add">Добавить текст в "Исчезающий текст"</a></li>
+                        <li><a class="dropdown-item" href="/flashingwords/add">Добавить набор слов в "Флеш-слова"</a></li>
+                        <li><a class="dropdown-item" href="/distributewords/add">Добавить набор слов в "Распредели слова"</a></li>
+                        <li><a class="dropdown-item" href="/editgestureswords">Изменить набор слов в "Кнопки мозга"</a></li>
+<!--                        <li><a class="dropdown-item" href="/gestureswords/add">Создать набор слов в "Кнопки мозга"</a></li>-->
                     </ul>
                 </div>
                 <li class="d-inline-block"><a sec:authorize="hasAnyRole('ADMIN', 'TEACHER')" href="/registration"
@@ -53,7 +52,7 @@
                     <li><a class="dropdown-item" href="/stroop">Тест Струпа</a></li>
                     <li><a class="dropdown-item" href="/flashingwords">Флеш-слова</a></li>
                     <li><a class="dropdown-item" href="/distributewords">Распредели слова</a></li>
-                    <li><a class="dropdown-item" href="/gestures">Точки мозга</a></li>
+                    <li><a class="dropdown-item" href="/gestures">Кнопки мозга</a></li>
                 </ul>
             </div>
 

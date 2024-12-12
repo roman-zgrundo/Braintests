@@ -13,10 +13,7 @@ public class Running_text {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-
     private String name;
-
-    
     private String text;
     private String q1, q2, q3, q4, q5;
     private int world_count;
