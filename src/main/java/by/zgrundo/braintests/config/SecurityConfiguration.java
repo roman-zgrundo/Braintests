@@ -33,6 +33,7 @@ public class SecurityConfiguration {
 
         return http
                 .authorizeRequests()
+                .antMatchers("/editspeedalphabet", "/editspeedalphabet/texts/{letterId}", "/editspeedalphabet/letters/add", "/editspeedalphabet/texts/add", "/editspeedalphabet/letters/update", "/editspeedalphabet/texts/update", "/editspeedalphabet/letters/delete/{id}", "/editspeedalphabet/texts/delete/{id}").hasRole("ADMIN")
                 .antMatchers("/editrt/{id}", "/runningtext/add").hasRole("ADMIN")
                 .antMatchers("/editflashingwords/{id}", "/flashingwords/add").hasRole("ADMIN")
                 .antMatchers("/editdistributewords/{id}", "/distributewords/add").hasRole("ADMIN")

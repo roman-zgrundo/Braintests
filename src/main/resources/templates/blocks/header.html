@@ -1,3 +1,5 @@
+
+<html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="header" xmlns:sec="http://www.w3.org/1999/xhtml">
 
     <div class="collapse" id="navbarToggleExternalContent">
@@ -13,7 +15,7 @@
                         <li><a class="dropdown-item" href="/flashingwords/add">Добавить набор слов в "Флеш-слова"</a></li>
                         <li><a class="dropdown-item" href="/distributewords/add">Добавить набор слов в "Распредели слова"</a></li>
                         <li><a class="dropdown-item" href="/editgestureswords">Изменить набор слов в "Кнопки мозга"</a></li>
-<!--                        <li><a class="dropdown-item" href="/gestureswords/add">Создать набор слов в "Кнопки мозга"</a></li>-->
+                        <li><a class="dropdown-item" href="/editspeedalphabet">Редактировать "Азбука скорости"</a></li>
                     </ul>
                 </div>
                 <li class="d-inline-block"><a sec:authorize="hasAnyRole('ADMIN', 'TEACHER')" href="/registration"

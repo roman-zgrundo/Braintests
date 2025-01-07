@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}">Редактирование алфавита</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/css/for_sht.css"/>
+</head>
+<body>
+<header class="sticky-top" th:insert="blocks/header :: header"></header>
+
+<div class="body container mt-4">
+    <h1 class="text-center mb-4">Редактирование букв и текстов</h1>
+
+    <!-- Первая таблица: список букв -->
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Список букв</h3>
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                <tr>
+                    <th>Буква</th>
+                    <th>Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td colspan="2">
+                        <!-- Кнопка для добавления новой буквы -->
+                        <form th:action="@{/editspeedalphabet/addletter}" method="post" class="d-flex">
+                            <input type="text" name="letter" class="form-control me-2" placeholder="Введите букву" required>
+                            <input type="number" name="seq" class="form-control me-2" placeholder="Сортировка" required>
+                            <button class="btn btn-primary">Добавить</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:each="letter : ${letters}">
+                    <td th:text="${letter.letter}"></td>
+                    <td class="d-flex">
+                        <!-- Кнопка для удаления буквы -->
+                        <form th:action="@{/editspeedalphabet/deleteletter/{id}(id=${letter.id})}" method="post">
+                            <button class="btn btn-outline-danger btn-sm me-2" type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square-fill" viewBox="0 0 16 16">
+                                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"/>
+                                </svg>
+                            </button>
+                        </form>
+                        <!-- Кнопка выбора буквы -->
+                        <button class="btn btn-outline-primary btn-sm" onclick="loadTextsForLetter(${letter.id})">Выбрать</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Вторая таблица: тексты для выбранной буквы -->
+        <div class="col-md-8">
+            <h3>Тексты для выбранной буквы</h3>
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                <tr>
+                    <th>Текст</th>
+                    <th>Действия</th>
+                </tr>
+                </thead>
+                <tbody id="texts-container">
+                <!-- Здесь будут загружаться строки с текстами через JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<footer th:insert="blocks/footer :: footer"></footer>
+<div th:insert="blocks/script-integration"></div>
+
+<script>
+    // Функция загрузки текстов для выбранной буквы
+    function loadTextsForLetter(letterId) {
+        fetch(`/editspeedalphabet/texts/${letterId}`)
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('texts-container');
+                container.innerHTML = '';
+                data.forEach(text => {
+                    const row = `
+                        <tr>
+                            <td>${text.text}</td>
+                            <td>
+                                <form th:action="@{/editspeedalphabet/deletetext/{id}(id=${text.id})}" method="post">
+                                    <button class="btn btn-outline-danger btn-sm" type="submit">Удалить</button>
+                                </form>
+                            </td>
+                        </tr>
+                    `;
+                    container.innerHTML += row;
+                });
+            })
+            .catch(error => console.error('Ошибка загрузки текстов:', error));
+    }
+</script>
+</body>
+</html>
